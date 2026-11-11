@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghir Lik Nti ❤️</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            background: radial-gradient(circle at center, #3a0ca3 0%, #240046 40%, #10002b 100%);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .bg-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 50% 30%, rgba(255, 77, 109, 0.25), transparent 60%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 117, 143, 0.2), transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        #stars-container, #hearts-container {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 8px #fff; }
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -10%;
+            color: rgba(255, 117, 143, 0.4);
+            animation: floatUp linear infinite;
+            user-select: none;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% { transform: translateY(-120vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* --- MAIN GLASS CONTAINER --- */
+        .card {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            max-width: 550px;
+            min-height: 440px;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 182, 193, 0.25);
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 77, 109, 0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* --- STEPS / SCREENS --- */
+        .step {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .step.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, .romantic-letter {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ffb3c6;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(255, 77, 109, 0.4);
+        }
+
+        h2.animated-question {
+            font-size: 2rem;
+            color: #ffb3c6;
+            margin-bottom: 25px;
+        }
+
+        p.subtitle {
+            font-size: 1.1rem;
+            color: #f8edeb;
+            margin-bottom: 35px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+        }
+
+        .romantic-letter {
+            font-size: 1.35rem;
+            color: #fff0f3;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* --- BUTTON STYLES --- */
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: #ff4d6d;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(255, 77, 109, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            background: #ff758f;
+            box-shadow: 0 15px 25px rgba(255, 77, 109, 0.6);
+        }
+
+        .btn-no {
+            background: rgba(255, 255, 255, 0.15);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: none;
+        }
+
+        .btn-no:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: none;
+        }
+
+        .btn-subtle {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 182, 193, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-subtle:hover {
+            background: rgba(255, 77, 109, 0.5);
+        }
+
+        /* --- GLOWING HEART --- */
+        .glowing-heart-container {
+            margin: 20px 0;
+        }
+
+        .glowing-heart {
+            width: 50px;
+            height: 50px;
+            background: #ff4d6d;
+            position: relative;
+            transform: rotate(-45deg);
+            animation: pulse 1.2s infinite alternate;
+            box-shadow: 0 0 40px #ff4d6d;
+        }
+
+        .glowing-heart::before,
+        .glowing-heart::after {
+            content: '';
+            width: 50px;
+            height: 50px;
+            background: #ff4d6d;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .glowing-heart::before {
+            top: -25px;
+            left: 0;
+        }
+
+        .glowing-heart::after {
+            left: 25px;
+            top: 0;
+        }
+
+        @keyframes pulse {
+            0% { transform: rotate(-45deg) scale(0.9); }
+            100% { transform: rotate(-45deg) scale(1.15); box-shadow: 0 0 60px #ff758f; }
+        }
+
+        /* --- HEART BUTTON --- */
+        .heart-btn-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .heart-btn-wrapper:hover {
+            transform: scale(1.1);
+        }
+
+        .heart-svg {
+            width: 70px;
+            height: 70px;
+            fill: #ff4d6d;
+            filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.8));
+            animation: pulse 1s infinite alternate;
+        }
+
+        .heart-btn-text {
+            font-size: 1rem;
+            color: #ffb3c6;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-overlay"></div>
+    <div id="stars-container"></div>
+    <div id="hearts-container"></div>
+
+    <div class="card">
+        <!-- STEP 0: S-so'al l-awwal -->
+        <div class="step active" id="step-0">
+            <h1>Katbghini? 🥺❤️</h1>
+            <p class="subtitle">Jawebni b saraha...</p>
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="nextStep(1)">Ah ❤️</button>
+                <button class="btn btn-no" onclick="showRejected()">La 💔</button>
+            </div>
+        </div>
+
+        <!-- STEP REJECTED: Ila klikat 3la "La" -->
+        <div class="step" id="step-rejected">
+            <h1 style="color: #ff4d6d; font-size: 2.5rem;">Ana nsrfa99 mok! 👊🏻😳</h1>
+            <p class="subtitle">Makaynsh chi haja smytha "La" hna, rj3i jawebi mzyan! 😤</p>
+            <button class="btn" onclick="retryStep()">Rj3i khtari odiri 3a9lk 🙄❤️</button>
+        </div>
+
+        <!-- STEP 1: Welcome -->
+        <div class="step" id="step-1">
+            <h1>Salam a Zin ❤️</h1>
+            <p class="subtitle">Qadit wa7ed l-7aja spécial ghir 3la wdek...</p>
+            
+            <div class="glowing-heart-container">
+                <div class="glowing-heart"></div>
+            </div>
+
+            <button class="btn" onclick="nextStep(2)">7elli l-mofaja2a dyalk 💌</button>
+        </div>
+
+        <!-- STEP 2: Love Letter -->
+        <div class="step" id="step-2">
+            <p class="romantic-letter">
+                "Yemken ana machi kamel, w yemken makanlqach dima l-hedra l-mnasba, walakin kayna 7aja we7da mta2eked menha: katreddi denya dyali zwina ghir b wojodek fiha. ❤️"
+            </p>
+            <button class="btn btn-subtle" onclick="nextStep(3)">Kemmli ✨</button>
+        </div>
+
+        <!-- STEP 3: Animated Question & Heart Button -->
+        <div class="step" id="step-3">
+            <h2 class="animated-question">Wach 3arfa ch7al nti spécial b nesba liya?</h2>
+            
+            <div class="heart-btn-wrapper" onclick="nextStep(4)">
+                <svg class="heart-svg" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <span class="heart-btn-text">Kliki Hna ❤️</span>
+            </div>
+        </div>
+
+        <!-- STEP 4: Answer Reveal -->
+        <div class="step" id="step-4">
+            <p class="romantic-letter" style="font-size: 1.6rem;">
+                "Kon kan 3endi l-ikhtiyar men jdid, ghadi n3awed nkhtarek nti.<br><br>F kol merra, w bla taradod."
+            </p>
+            <button class="btn btn-subtle" onclick="nextStep(5)">7aja akhira... ❤️</button>
+        </div>
+
+        <!-- STEP 5: Final Romantic Screen -->
+        <div class="step" id="step-5">
+            <div class="glowing-heart-container" style="transform: scale(0.7); margin: 5px 0 20px 0;">
+                <div class="glowing-heart"></div>
+            </div>
+            <p class="romantic-letter">
+                "Site wa7ed, mofaja2a sghiwra, w insana we7da kantmenna dima nchoufha da7ka.<br><br>
+                <span style="font-size: 2.2rem; color: #ffb3c6; font-style: normal;">Nti. ❤️</span>
+            </p>
+            <button class="btn btn-subtle" style="font-size: 0.85rem; padding: 10px 25px;" onclick="nextStep(0)">3awdi men l-ewel ↺</button>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(stepIndex) {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach(step => {
+                step.classList.remove('active');
+                step.style.display = 'none';
+            });
+
+            const targetStep = document.getElementById(`step-${stepIndex}`);
+            if (targetStep) {
+                targetStep.style.display = 'flex';
+                setTimeout(() => {
+                    targetStep.classList.add('active');
+                }, 50);
+            }
+        }
+
+        function showRejected() {
+            const steps = document.querySelectorAll('.step');
+            steps.forEach(step => {
+                step.classList.remove('active');
+                step.style.display = 'none';
+            });
+
+            const rejectedStep = document.getElementById('step-rejected');
+            if (rejectedStep) {
+                rejectedStep.style.display = 'flex';
+                setTimeout(() => {
+                    rejectedStep.classList.add('active');
+                }, 50);
+            }
+        }
+
+        function retryStep() {
+            nextStep(0);
+        }
+
+        // Generate Background Stars & Hearts dynamically
+        function createBackgroundEffects() {
+            const starsContainer = document.getElementById('stars-container');
+            const heartsContainer = document.getElementById('hearts-container');
+
+            for (let i = 0; i < 40; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                starsContainer.appendChild(star);
+            }
+
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animationDuration = (Math.random() * 6 + 6) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        window.onload = createBackgroundEffects;
+    </script>
+</body>
+</html>
